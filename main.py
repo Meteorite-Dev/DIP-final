@@ -37,7 +37,7 @@ class Root(GUI_Function  ,tk.Frame ):
         self.image_open_button()
         self.image_gus_blur_button()
         self.image_otsu_thres_button()
-
+        self.image_Log_button()
 
     def initial_user_interface(self):
         self.parent.geometry("1024x720")
@@ -61,13 +61,17 @@ class Root(GUI_Function  ,tk.Frame ):
 
     def image_gus_blur_button(self) :
         self.blur = ttk.Button(self.parent, text="blur",
-                               command=self.gus_blur)
+                               command=lambda :[self.open_image(),self.gus_blur()])
         self.blur.grid(column=2, row=2)
     def image_otsu_thres_button(self) :
         self.otsu = ttk.Button(self.parent, text="otsu",
-                               command=self.otsu_thres)
+                               command=lambda :[self.open_image(),self.otsu_thres()])
         self.otsu.grid(column=3, row=3)
 
+    def image_Log_button(self) :
+        self.Log = ttk.Button(self.parent, text="LoG",
+                               command=lambda :[self.open_image(),self.log_function_for_button()])
+        self.Log.grid(column=4, row=4)
 
 if __name__ =='__main__' :
     RootWindow = tk.Tk()

@@ -53,7 +53,15 @@ class GUI_Function (tk.Frame ,ImageProcess):
         image = super().otsu_threshold(self.image)
         image = super().CV2PIL(image)
         super().show(image = image)
-            
+
+    def log_function_for_button(self):
+        image_path = self.image_path
+        print(image_path)
+        image = super().LoG(self.image)
+        image = super().CV2PIL(image)
+        super().show(image = image)
+    
+
 if __name__ =="__main__" :
     G = GUI_Function(tk.Tk())
     G.OpenImage("okayu.png")
