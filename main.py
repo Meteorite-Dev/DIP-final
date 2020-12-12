@@ -28,8 +28,20 @@ class Root(GUI_Function  ,tk.Frame ):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
         self.parent = parent
-        # photo = tk.PhotoImage(file="D:\DIPclass\DIP-final\background.png")
-        
+        '''canvas = Canvas(RootWindow)
+        photo = tk.PhotoImage(file='back.gif')
+        canvas.create_image(200, 150, image=photo)
+        canvas = tk.Canvas(RootWindow, width=1200,height=699,bd=0, highlightthickness=0)
+        imgpath = "back.gif"
+        img = Image.open(imgpath)
+        photo = ImageTk.PhotoImage(img)
+        canvas.create_image(700, 500, image=photo)
+        canvas.pack()
+        entry=tk.Entry(RootWindow,insertbackground='blue', highlightthickness =2)
+        entry.pack()
+        canvas.create_window(100, 50, width=100, height=20,
+                                       window=entry)
+        '''
         GUI_Function.__init__(self, parent=self.parent)
 
         self.initial_user_interface()
