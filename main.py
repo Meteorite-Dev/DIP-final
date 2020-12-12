@@ -28,7 +28,8 @@ class Root(GUI_Function  ,tk.Frame ):
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
         self.parent = parent
-
+        # photo = tk.PhotoImage(file="D:\DIPclass\DIP-final\background.png")
+        
         GUI_Function.__init__(self, parent=self.parent)
 
         self.initial_user_interface()
@@ -56,7 +57,7 @@ class Root(GUI_Function  ,tk.Frame ):
 
     def image_open_button(self):
         self.image_open = ttk.Button(
-            self.parent, text="open", command=self.open_image)
+            self.parent, text="Show original picture", command=self.open_original_image)
         self.image_open.grid(column=2, row=1)
 
     def image_gus_blur_button(self) :
@@ -77,5 +78,4 @@ if __name__ =='__main__' :
     RootWindow = tk.Tk()
     run = Root(RootWindow)
     RootWindow.mainloop()
-
 
