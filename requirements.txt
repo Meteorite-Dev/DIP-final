@@ -1,0 +1,8 @@
+scipy
+pillow
+opencv-python==4.2.0.32
+numpy
+matplotlib
+PyQt5
+vtk
+mayavi==4.7.2
