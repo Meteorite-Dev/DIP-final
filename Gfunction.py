@@ -50,12 +50,27 @@ class GUI_Function (tk.Frame ,ImageProcess):
         self.image =super().OpenImage(image_file_name = self.image_path , methood="cv")
         #super().show(image= self.image ,methood="cv")
 
-    def gus_blur(self):
+    def gaus_kernal(self):
+        image_path = self.image_path
+        print(image_path)
+        image = super().gaussian_kernal(self.image)
+        image = super().CV2PIL(image)
+        super().show(image = image)
+
+    def gaus_blur(self):
         image_path = self.image_path
         print(image_path)
         image = super().Gaussian_filter(self.image)
         image = super().CV2PIL(image)
         super().show(image = image)
+
+    def fil2d(self):
+        image_path = self.image_path
+        print(image_path)
+        image = super().filter2d(self.image)
+        image = super().CV2PIL(image)
+        super().show(image = image)
+        
     def otsu_thres(self):
         image_path = self.image_path
         print(image_path)
@@ -70,6 +85,12 @@ class GUI_Function (tk.Frame ,ImageProcess):
         image = super().CV2PIL(image)
         super().show(image = image)
     
+    def sobel_function_for_button(self):
+        image_path = self.image_path
+        print(image_path)
+        image = super().Sobel(self.image)
+        image = super().CV2PIL(image)
+        super().show(image = image)
 
 if __name__ =="__main__" :
     G = GUI_Function(tk.Tk())

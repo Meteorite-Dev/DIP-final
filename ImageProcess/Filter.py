@@ -10,13 +10,13 @@ class Filter():
     def __init__ (self):
         pass
     
-    def gaussian_kernal(self, size, intensity = 0):
+    def gaussian_kernal(self, size, intensity = 0.5):
         gs_ker = cv2.getGaussianKernel(ksize=size , sigma=intensity)
         gs = gs_ker * gs_ker.T
 
         return gs
     
-    def Gaussian_filter(self , image ,intensity=0.5) :
+    def Gaussian_filter(self , image ,intensity=2) :
         blur = cv2.GaussianBlur(image , (5,5) , intensity)
         return blur 
 
