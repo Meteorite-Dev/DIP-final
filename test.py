@@ -1,3 +1,14 @@
+from tkinter import *
+
+root = Tk()
+t = Text(wrap=WORD)
+t.pack()
+
+root.mainloop()
+
+
+
+'''
 import tkinter as tk
 from PIL import ImageTk, Image
 
@@ -19,3 +30,4 @@ canvas.create_window(100, 50, width=100, height=20,
 
 
 root.mainloop()
+'''

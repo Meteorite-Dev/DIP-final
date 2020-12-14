@@ -27,6 +27,16 @@ class Root(GUI_Function  ,tk.Frame ):
 
     def __init__(self, parent):
         tk.Frame.__init__(self, parent)
+
+        self.width = 200
+        self.height = 100
+        
+        self.central_y = (self.height/2)+30
+        self.central_x = (self.width/2)+30
+        
+        self.offset_x = self.width*9/8
+        self.offset_y = self.height*9/8
+
         self.parent = parent
         
         #entry=tk.Entry(RootWindow,insertbackground='blue', highlightthickness =2)#用來參考的程式碼
@@ -46,7 +56,7 @@ class Root(GUI_Function  ,tk.Frame ):
         self.image_sobel_button()
         
     def initial_user_interface(self):
-        self.parent.geometry("1024x720")
+        self.parent.geometry("1600x1000")
         self.parent.resizable(False, False)
         self.parent.title("MEV-DIP_class_Final_project")
     
@@ -56,64 +66,80 @@ class Root(GUI_Function  ,tk.Frame ):
         self.image_name = ttk.Entry(
               self.parent, width=13, textvariable=self.filename)
         #self.image_name.grid(column=1 ,row=1 , pady=10 ,padx=10 ,ipadx=10 ,ipady=13)
-        canvas.create_window(75,26, width=150, height=50,window=self.image_name)
+        canvas.create_window(self.central_x,self.central_y, width=self.width, height=self.height,window=self.image_name)
     
     def image_chose_button(self):
         self.image_chose = ttk.Button(
              self.parent, text="Choosen", command=self.Chose_Image)
         #self.image_chose.grid(column=2, row=1 ,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)#有了下面那行這行就出現不了了
-        canvas.create_window(200,26, width=100, height=50,window=self.image_chose)
+        canvas.create_window(self.central_x+self.offset_x,self.central_y, width=self.width, height=self.height,window=self.image_chose)
         
 
     def image_open_button(self):
         self.image_open = ttk.Button(
             self.parent, text="Show original picture", command=self.open_original_image)
-        self.image_open.grid(column=3, row=1,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
-
+        #self.image_open.grid(column=3, row=1,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        canvas.create_window(self.central_x+2*self.offset_x,self.central_y,
+                             width=self.width, height=self.height,window=self.image_open)
+    
     #gaus_kernal only integer scalar arrays can be converted to a scalar index，所以我沒放上去
     def image_gaus_kernal_button(self) : 
         self.kernal = ttk.Button(self.parent, text="gaus kernal",
                                command=lambda :[self.open_image(),self.gaus_kernal()])
-        self.kernal.grid(column=2, row=3,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
-    
+        #self.kernal.grid(column=2, row=3,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        canvas.create_window(self.central_x+self.offset_x,self.central_y+self.offset_y,
+                             width=self.width, height=self.height,window=self.kernal)
+
     def image_gaus_blur_button(self) :
         self.blur = ttk.Button(self.parent, text="gaus blur",
                                command=lambda :[self.open_image(),self.gaus_blur()])
-        self.blur.grid(column=1, row=2,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+       # self.blur.grid(column=1, row=2,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        canvas.create_window(self.central_x,self.central_y+self.offset_y,
+                             width=self.width, height=self.height,window=self.blur)
 
     #filter2d() missing 1 required positional argument: 'filter'
     def image_filter2d_button(self) :
         filt = super().gaussian_kernal(size = 3)
         self.filter2d = ttk.Button(self.parent, text="filter2d",
                                command=lambda :[self.open_image(),self.fil2d()])
-        self.filter2d.grid(column=2, row=4,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        #self.filter2d.grid(column=2, row=4,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        canvas.create_window(self.central_x+self.offset_x,self.central_y+2*self.offset_y,
+                             width=self.width, height=self.height,window=self.filter2d)
 
     def image_otsu_thres_button(self) :
         self.otsu = ttk.Button(self.parent, text="otsu",
                                command=lambda :[self.open_image(),self.otsu_thres()])
-        self.otsu.grid(column=1, row=3,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        #self.otsu.grid(column=1, row=3,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        canvas.create_window(self.central_x,self.central_y+2*self.offset_y,
+                             width=self.width, height=self.height,window=self.otsu)
 
     def image_Log_button(self) :
         self.Log = ttk.Button(self.parent, text="LoG",
                                command=lambda :[self.open_image(),self.log_function_for_button()])
-        self.Log.grid(column=1, row=4,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        #self.Log.grid(column=1, row=4,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        canvas.create_window(self.central_x,self.central_y+3*self.offset_y,
+                             width=self.width, height=self.height,window=self.Log)
+
 
     def image_sobel_button(self) :
         self.sobel = ttk.Button(self.parent, text="Sobel",
                                command=lambda :[self.open_image(),self.sobel_function_for_button()])
-        self.sobel.grid(column=1, row=5,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        #self.sobel.grid(column=1, row=5,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        canvas.create_window(self.central_x,self.central_y+4*self.offset_y,
+                             width=self.width, height=self.height,window=self.sobel)
 
 if __name__ =='__main__' :
     RootWindow = tk.Tk()
     canvas = tk.Canvas(RootWindow,
-        width = 1023,      # 指定Canvas元件的寬度 
-        height = 719,      # 指定Canvas元件的高度 
+        width = 1600,      # 指定Canvas元件的寬度 
+        height = 1000,      # 指定Canvas元件的高度 
         bg = 'blue')      # 指定Canvas元件的背景色 
-    im=tk.PhotoImage(file='1.gif')#PhotoImage 只能用gif圖
-    canvas.create_image(512,360,image = im)#那裏是圖片的中心點
+    im=tk.PhotoImage(file='background.gif')#PhotoImage 只能用gif圖
+    canvas.create_image(800,500,image = im)#那裏是圖片的中心點
+    im1=tk.PhotoImage(file='ccit.gif')
+    canvas.create_image(1370,224,image = im1)#放上校徽整個感覺就不一樣了
     canvas.grid()
     
-
     run = Root(RootWindow)
     RootWindow.mainloop()
 

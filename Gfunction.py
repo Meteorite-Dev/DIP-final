@@ -28,6 +28,7 @@ class GUI_Function (tk.Frame ,ImageProcess):
         self.filename = tk.StringVar(self.parent, value=file)
         self.image_name.delete(0 ,"end")
         self.image_name.insert(0, file)
+
         
         # self.image_name = ttk.Entry(
         #     self.parent, width=len(file)-5, textvariable=self.filename)
