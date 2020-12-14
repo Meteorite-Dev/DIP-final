@@ -66,8 +66,9 @@ class GUI_Function (tk.Frame ,ImageProcess):
 
     def fil2d(self):
         image_path = self.image_path
+        filt = super().gaussian_kernal(size = 3 ,intensity = 1)
         print(image_path)
-        image = super().filter2d(self.image)
+        image = super().filter2d(self.image , filt)
         image = super().CV2PIL(image)
         super().show(image = image)
         

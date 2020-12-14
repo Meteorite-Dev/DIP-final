@@ -57,6 +57,7 @@ class Root(GUI_Function  ,tk.Frame ):
               self.parent, width=13, textvariable=self.filename)
         #self.image_name.grid(column=1 ,row=1 , pady=10 ,padx=10 ,ipadx=10 ,ipady=13)
         canvas.create_window(75,26, width=150, height=50,window=self.image_name)
+    
     def image_chose_button(self):
         self.image_chose = ttk.Button(
              self.parent, text="Choosen", command=self.Chose_Image)
@@ -82,6 +83,7 @@ class Root(GUI_Function  ,tk.Frame ):
 
     #filter2d() missing 1 required positional argument: 'filter'
     def image_filter2d_button(self) :
+        filt = super().gaussian_kernal(size = 3)
         self.filter2d = ttk.Button(self.parent, text="filter2d",
                                command=lambda :[self.open_image(),self.fil2d()])
         self.filter2d.grid(column=2, row=4,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
@@ -104,11 +106,11 @@ class Root(GUI_Function  ,tk.Frame ):
 if __name__ =='__main__' :
     RootWindow = tk.Tk()
     canvas = tk.Canvas(RootWindow,
-        width = 510,      # 指定Canvas元件的寬度 
-        height = 380,      # 指定Canvas元件的高度 
+        width = 1023,      # 指定Canvas元件的寬度 
+        height = 719,      # 指定Canvas元件的高度 
         bg = 'blue')      # 指定Canvas元件的背景色 
-    im=tk.PhotoImage(file='back.gif')#PhotoImage 只能用gif圖
-    canvas.create_image(256,192,image = im)#那裏是圖片的中心點
+    im=tk.PhotoImage(file='1.gif')#PhotoImage 只能用gif圖
+    canvas.create_image(512,360,image = im)#那裏是圖片的中心點
     canvas.grid()
     
 
