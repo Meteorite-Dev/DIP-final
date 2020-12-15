@@ -54,32 +54,47 @@ class Root(GUI_Function  ,tk.Frame ):
         self.image_otsu_thres_button()
         self.image_Log_button()
         self.image_sobel_button()
-        
+        #self.image_show_label()
+
     def initial_user_interface(self):
         self.parent.geometry("1600x1000")
         self.parent.resizable(False, False)
         self.parent.title("MEV-DIP_class_Final_project")
     
     #預留column=0和row=0當作預設擴充的地方或是最後要把輸入的按鍵外擴
-
+    '''
+    def image_show_label(self):#這些是柏鑫測試的東西
+        #image_path = self.show_image_on_window()
+        #self.image =super().OpenImage(image_file_name = self.image_path , methood="cv")
+        my_image=tk.PhotoImage(file='ccit.gif')
+        self.image_label = ttk.Label(self.parent,image=my_image)
+        canvas.create_window(self.central_x+3*self.offset_x,self.central_y+5*self.offset_y,
+                             width=444, height=444,window=self.image_label)
+    
+        my_image = Image.open(jpg)
+        resized = my_image.resize((320, 240), Image.ANTIALIAS)
+        my_image = ImageTk.PhotoImage(resized)
+        my_image_label = tk.Label(image=my_image)
+        my_image_label.place(x=5, y=140)
+    '''#這些是柏鑫測試的東西
     def chose_textbox(self):
         self.image_name = ttk.Entry(
               self.parent, width=13, textvariable=self.filename)
         #self.image_name.grid(column=1 ,row=1 , pady=10 ,padx=10 ,ipadx=10 ,ipady=13)
-        canvas.create_window(self.central_x,self.central_y, width=self.width, height=self.height,window=self.image_name)
+        canvas.create_window(self.central_x+150,self.central_y, width=self.width+300, height=self.height,window=self.image_name)
     
     def image_chose_button(self):
         self.image_chose = ttk.Button(
              self.parent, text="Choosen", command=self.Chose_Image)
         #self.image_chose.grid(column=2, row=1 ,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)#有了下面那行這行就出現不了了
-        canvas.create_window(self.central_x+self.offset_x,self.central_y, width=self.width, height=self.height,window=self.image_chose)
+        canvas.create_window(self.central_x+self.offset_x+300,self.central_y, width=self.width, height=self.height,window=self.image_chose)
         
 
     def image_open_button(self):
         self.image_open = ttk.Button(
             self.parent, text="Show original picture", command=self.open_original_image)
         #self.image_open.grid(column=3, row=1,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
-        canvas.create_window(self.central_x+2*self.offset_x,self.central_y,
+        canvas.create_window(self.central_x+2*self.offset_x+300,self.central_y,
                              width=self.width, height=self.height,window=self.image_open)
     
     #gaus_kernal only integer scalar arrays can be converted to a scalar index，所以我沒放上去
