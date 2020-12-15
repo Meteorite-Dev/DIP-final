@@ -141,6 +141,19 @@ blur_image = Filter.Gaussian_filter(image , intensity=0.5)
 ```
 intensity : 模糊強度
 
+**median blur**
+```python
+blur = Filter.medianblur(image , size)
+```
+size 預設 5 
+
+**morphology blur**
+```python
+blur = Filter.morphology(image , filter, outside_nosice=True)
+```
+filter : 正方形矩陣(np_array)
+outside_nosice : True or False
+
 
 **Filter 自訂義**
 ```python

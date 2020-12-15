@@ -15,10 +15,21 @@ class Filter():
         gs = gs_ker * gs_ker.T
 
         return gs
-    
+
     def Gaussian_filter(self , image ,intensity=2) :
         blur = cv2.GaussianBlur(image , (5,5) , intensity)
         return blur 
+
+    def medianblur(self , image) :
+        blur = cv2.medianBlur(image ,ksize=5)
+        return blur
+
+    def morphology(self ,image , filter, outside_nosice=True) :
+        if outside_nosice :
+            blur = cv2.morphologyEx(image , cv2.MORPH_OPEN , kernel=filter)
+        else :
+            blur = cv2.morphologyEx(image, kernel=filter, borderType=cv2.MORPH_CLOSE)
+        return blur
 
     def filter2d(self , image , filter ):
         for i in range(3):
@@ -81,7 +92,10 @@ class EdgeDetector(Filter):
 if __name__ == "__main__" :
     fil = Filter()
     im = Image_classical()
-    image = im.OpenImage("okayu.png" , methood="cv")
-    image = fil.otsu_threshold(image)
-    image = im.CV2PIL(image)
-    im.show(image)
+    image = im.OpenImage("source\\okayu.png" , methood="cv")
+    image = im.ResizeImage(image, devide=3)
+    filter1 = fil.gaussian_kernal(size=5)
+    image = fil.morphology(image , filter=filter1 , outside_nosice=True)
+    # image = fil.morphology(image, filter=filter1, outside_nosice=True)
+    # image = im.CV2PIL(image)
+    im.show(image , methood="cv")
