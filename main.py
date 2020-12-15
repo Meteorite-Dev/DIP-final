@@ -19,14 +19,14 @@ git pull
 '''
 import tkinter as tk
 from tkinter import  ttk
-
+from PIL import Image, ImageTk
 from Gfunction import GUI_Function
 
 
 class Root(GUI_Function  ,tk.Frame ):
 
     def __init__(self, parent):
-        tk.Frame.__init__(self, parent)
+        tk.Frame.__init__(self, parent )
 
         self.width = 200
         self.height = 100
@@ -39,11 +39,11 @@ class Root(GUI_Function  ,tk.Frame ):
 
 
         self.parent = parent
-
+       
         #entry=tk.Entry(RootWindow,insertbackground='blue', highlightthickness =2)#用來參考的程式碼
         #canvas.create_window(256,174, width=100, height=200,window=entry) #位置是圖片中心點，可以用來插入在桌布上面
         
-        GUI_Function.__init__(self, parent=self.parent)
+        GUI_Function.__init__(self,parent=self.parent)
 
         self.initial_user_interface()
         self.chose_textbox()
@@ -55,7 +55,7 @@ class Root(GUI_Function  ,tk.Frame ):
         self.image_otsu_thres_button()
         self.image_Log_button()
         self.image_sobel_button()
-        #self.image_show_label()
+        # self.image_label()
 
     def initial_user_interface(self):
         self.parent.geometry("1600x1000")
@@ -63,40 +63,36 @@ class Root(GUI_Function  ,tk.Frame ):
         self.parent.title("MEV-DIP_class_Final_project")
     
     #預留column=0和row=0當作預設擴充的地方或是最後要把輸入的按鍵外擴
-    '''
-    def image_show_label(self):#這些是柏鑫測試的東西
-        #image_path = self.show_image_on_window()
-        #self.image =super().OpenImage(image_file_name = self.image_path , methood="cv")
-        my_image=tk.PhotoImage(file='ccit.gif')
-        self.image_label = ttk.Label(self.parent,image=my_image)
-        canvas.create_window(self.central_x+3*self.offset_x,self.central_y+5*self.offset_y,
-                             width=444, height=444,window=self.image_label)
     
-        my_image = Image.open(jpg)
-        resized = my_image.resize((320, 240), Image.ANTIALIAS)
-        my_image = ImageTk.PhotoImage(resized)
-        my_image_label = tk.Label(image=my_image)
-        my_image_label.place(x=5, y=140)
-    '''#這些是柏鑫測試的東西
+    
     def chose_textbox(self):
         self.image_name = ttk.Entry(
               self.parent, width=13, textvariable=self.filename)
         #self.image_name.grid(column=1 ,row=1 , pady=10 ,padx=10 ,ipadx=10 ,ipady=13)
-        canvas.create_window(self.central_x+150,self.central_y, width=self.width+300, height=self.height,window=self.image_name)
+        canvas.create_window(self.central_x+250,self.central_y, width=self.width+500, height=self.height/2,window=self.image_name)
     
     def image_chose_button(self):
         self.image_chose = ttk.Button(
              self.parent, text="Choosen" , command=self.Chose_Image)
         #self.image_chose.grid(column=2, row=1 ,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)#有了下面那行這行就出現不了了
-        canvas.create_window(self.central_x+self.offset_x+300,self.central_y, width=self.width, height=self.height,window=self.image_chose)
+        canvas.create_window(self.central_x+self.offset_x+450,self.central_y, width=self.width/2, height=self.height/2,window=self.image_chose)
         
 
     def image_open_button(self):
         self.image_open = ttk.Button(
-            self.parent, text="Show original picture", command=self.open_original_image )
+            self.parent, text="Show original picture", command=lambda:[self.open_original_image(),self.open_image(),self.image_label(),])
         #self.image_open.grid(column=3, row=1,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
-        canvas.create_window(self.central_x+2*self.offset_x+300,self.central_y,
-                             width=self.width, height=self.height,window=self.image_open)
+        canvas.create_window(self.central_x+2*self.offset_x+400,self.central_y,
+                             width=self.width*8/9, height=self.height/2,window=self.image_open)
+
+    def image_label(self):
+        image = self.label_image()
+        image = ImageTk.PhotoImage(image)
+        self.show_image_label=ttk.Label(image=image)
+        self.show_image_label.image=image
+        canvas.create_window(self.central_x+4*self.offset_x, self.central_y+5*self.offset_y,
+                             width=4*self.width, height=4*self.height, window=self.show_image_label)
+    
     
     #gaus_kernal only integer scalar arrays can be converted to a scalar index，所以我沒放上去
     def image_gaus_kernal_button(self) : 
