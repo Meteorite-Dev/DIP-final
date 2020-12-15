@@ -42,10 +42,10 @@ class GUI_Function (tk.Frame ,ImageProcess):
         print(self.image_path)
         # self.image_file_name = image_path
         self.image =super().OpenImage(image_file_name = self.image_path , methood="cv")
-        #image = super().CV2PIL(self.image)
-        super().show(image=self.image ,methood="cv")
+        image = super().CV2PIL(self.image)
+        super().show(image=self.image ,methood="pil")
         #super().show(image = image)
-        return self.image
+        #return self.image
 
     def open_image(self): #讓其他功能可以開檔案
         self.image_path = self.image_name.get()
