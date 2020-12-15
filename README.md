@@ -30,9 +30,14 @@ Boboxin：加入寫程式行列(前端GUI介面)
 > 在有更新的時候，請記得打一下這個。
 > 務必要告訴其他人新增的地方。
 > 重大進展：放上背景，可以把案件放在背景圖片上面，缺少1024*720的GIF圖
+
+
+
 12/13
 
 完成背景放置，等到1024*720gif圖進來後可以將按鈕擺放到定位
+
+
 12/9 
 
 寫完 sobel canny otsu 都是 call function 還蠻簡單的。\
@@ -59,6 +64,7 @@ Boboxin：加入寫程式行列(前端GUI介面)
 
 
 ## 待完成
+
 
 **Edge detector**
 LOG (Laplacian of gaussian)

@@ -34,20 +34,7 @@ class GUI_Function (tk.Frame ,ImageProcess):
         #     self.parent, width=len(file)-5, textvariable=self.filename)
         # self.image_name.grid(column=0, row=1, pady=10,
         #                      padx=10, ipadx=3, ipady=1)
-    '''def show_image_on_window(self):#這些是柏鑫測試的東西
-        self.image_path = self.image_name.get()
-        print(self.image_path)
-
-        return self.image_path
-        # self.image_file_name = image_path
-        #self.image =super().OpenImage(image_file_name = self.image_path , methood="cv")
-        #image = super().CV2PIL(self.image)
-        
-        
-
-        #super().show(image=image ,methood="pil")
-        #super().show(image = image)
-    '''
+    
     def open_original_image(self):#開原圖用的
         self.image_path = self.image_name.get()
         print(self.image_path)

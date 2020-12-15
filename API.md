@@ -147,12 +147,12 @@ blur = Filter.medianblur(image , size)
 ```
 size 預設 5 
 
-**morphology blur**
+**morphology**
 ```python
 blur = Filter.morphology(image , filter, outside_nosice=True)
 ```
 filter : 正方形矩陣(np_array)
-outside_nosice : True or False
+Opening : True or False
 
 
 **Filter 自訂義**
