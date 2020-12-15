@@ -71,12 +71,15 @@ class Image_classical():
                 image = image.rotate(rotate)
             image.show()
         elif methood =="cv" or methood =="cv2":
+            center = (image.shape[0]/2, image.shape[1]/2)
             if trans :
                 image = cv2.flip(image, 1)
             if rotate != 0 :
-                center = (image.shape[0]/2 , image.shape[1]/2)
+                
                 rot = cv2.getRotationMatrix2D(center, rotate, 1)
                 image = cv2.warpAffine(image, rot, image.shape[:2])
+            cv2.namedWindow("image", flags=cv2.WINDOW_NORMAL)
+            cv2.resizeWindow("image" , (int(center[1]) , int(center[0])) )
             cv2.imshow("image", image)
             cv2.waitKey()
             cv2.destroyAllWindows()
@@ -111,7 +114,7 @@ class Image_classical():
         return CVimage
 
     def CV2PIL(self , image) :
-        self.image = Image.fromarray(image).convert('RGB') 
+        self.image = Image.fromarray(image)
         return self.image
 
     def img2np(self ,image, methood="cv") : 
