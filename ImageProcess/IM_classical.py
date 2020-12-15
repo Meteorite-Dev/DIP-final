@@ -111,7 +111,7 @@ class Image_classical():
         return CVimage
 
     def CV2PIL(self , image) :
-        self.image = Image.fromarray(image).convert('RGB') 
+        self.image = Image.fromarray(image)
         return self.image
 
     def img2np(self ,image, methood="cv") : 
