@@ -131,3 +131,7 @@ dmypy.json
 # MingChe 
 test/
 source/
+
+# VScode
+.vscode/
+.vs/

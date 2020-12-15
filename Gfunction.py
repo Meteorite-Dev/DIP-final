@@ -8,7 +8,7 @@
 '''
 import tkinter as tk 
 from tkinter import filedialog ,ttk
-
+from PIL import Image
 from ImageProcess.process import ImageProcess
 
 class GUI_Function (tk.Frame ,ImageProcess):
@@ -55,7 +55,10 @@ class GUI_Function (tk.Frame ,ImageProcess):
         return self.image
         #super().show(image= self.image ,methood="cv")
     
- 
+    def label_image(self):
+        image = super().CV2PIL(self.image)
+        image = image.resize((512, 512), Image.ANTIALIAS)
+        return image
 
     def gaus_kernal(self):
         image_path = self.image_path

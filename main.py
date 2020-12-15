@@ -37,9 +37,9 @@ class Root(GUI_Function  ,tk.Frame ):
         self.offset_x = self.width*9/8
         self.offset_y = self.height*9/8
 
+
         self.parent = parent
        
-        
         #entry=tk.Entry(RootWindow,insertbackground='blue', highlightthickness =2)#用來參考的程式碼
         #canvas.create_window(256,174, width=100, height=200,window=entry) #位置是圖片中心點，可以用來插入在桌布上面
         
@@ -55,7 +55,7 @@ class Root(GUI_Function  ,tk.Frame ):
         self.image_otsu_thres_button()
         self.image_Log_button()
         self.image_sobel_button()
-        
+        # self.image_label()
 
     def initial_user_interface(self):
         self.parent.geometry("1600x1000")
@@ -73,18 +73,25 @@ class Root(GUI_Function  ,tk.Frame ):
     
     def image_chose_button(self):
         self.image_chose = ttk.Button(
-             self.parent, text="Choosen", command=self.Chose_Image)
+             self.parent, text="Choosen" , command=self.Chose_Image)
         #self.image_chose.grid(column=2, row=1 ,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)#有了下面那行這行就出現不了了
         canvas.create_window(self.central_x+self.offset_x+450,self.central_y, width=self.width/2, height=self.height/2,window=self.image_chose)
         
 
     def image_open_button(self):
         self.image_open = ttk.Button(
-            self.parent, text="Show original picture", command=self.open_original_image)
+            self.parent, text="Show original picture", command=lambda:[self.open_original_image(),self.open_image(),self.image_label(),])
         #self.image_open.grid(column=3, row=1,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
         canvas.create_window(self.central_x+2*self.offset_x+400,self.central_y,
                              width=self.width*8/9, height=self.height/2,window=self.image_open)
-    
+
+    def image_label(self):
+        image = self.label_image()
+        image = ImageTk.PhotoImage(image)
+        self.show_image_label=ttk.Label(image=image)
+        self.show_image_label.image=image
+        canvas.create_window(self.central_x+4*self.offset_x, self.central_y+5*self.offset_y,
+                             width=4*self.width, height=4*self.height, window=self.show_image_label)
     
     
     #gaus_kernal only integer scalar arrays can be converted to a scalar index，所以我沒放上去
@@ -138,11 +145,11 @@ if __name__ =='__main__' :
     canvas = tk.Canvas(RootWindow,
         width = 1600,      # 指定Canvas元件的寬度 
         height = 1000,      # 指定Canvas元件的高度 
-        bg = 'blue')      # 指定Canvas元件的背景色 
-    im=tk.PhotoImage(file='background.gif')#PhotoImage 只能用gif圖
+        bg='#afeeee')      # 指定Canvas元件的背景色
+    im=tk.PhotoImage(file='REM.gif')#PhotoImage 只能用gif圖
     canvas.create_image(800,500,image = im)#那裏是圖片的中心點
-    im1=tk.PhotoImage(file='ccit.gif')
-    canvas.create_image(1370,224,image = im1)#放上校徽整個感覺就不一樣了
+    # im1=tk.PhotoImage(file='ccit.gif')
+    # canvas.create_image(1370,224,image = im1)#放上校徽整個感覺就不一樣了
     canvas.grid()
     
     run = Root(RootWindow)

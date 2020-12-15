@@ -20,15 +20,15 @@ class Filter():
         blur = cv2.GaussianBlur(image , (5,5) , intensity)
         return blur 
 
-    def medianblur(self , image) :
-        blur = cv2.medianBlur(image ,ksize=5)
+    def medianblur(self , image , size=5) :
+        blur = cv2.medianBlur(image ,ksize=size)
         return blur
 
-    def morphology(self ,image , filter, outside_nosice=True) :
-        if outside_nosice :
+    def morphology(self ,image , filter, Opening=True) :
+        if Opening :
             blur = cv2.morphologyEx(image , cv2.MORPH_OPEN , kernel=filter)
         else :
-            blur = cv2.morphologyEx(image, kernel=filter, borderType=cv2.MORPH_CLOSE)
+            blur = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel=filter)
         return blur
 
     def filter2d(self , image , filter ):
@@ -42,7 +42,7 @@ class Filter():
             Gimage = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
         else :
             Gimage = image
-        ret, Gimage = cv2.threshold(Gimage, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        ret, Gimage = cv2.threshold(Gimage, 0, 255, cv2.THRESH_OTSU)
         return Gimage
 
 class EdgeDetector(Filter):
@@ -94,8 +94,8 @@ if __name__ == "__main__" :
     im = Image_classical()
     image = im.OpenImage("source\\okayu.png" , methood="cv")
     image = im.ResizeImage(image, devide=3)
-    filter1 = fil.gaussian_kernal(size=5)
-    image = fil.morphology(image , filter=filter1 , outside_nosice=True)
-    # image = fil.morphology(image, filter=filter1, outside_nosice=True)
-    # image = im.CV2PIL(image)
-    im.show(image , methood="cv")
+    filter1 = np.ones([10,10])
+    image = fil.morphology(image , filter=filter1 , Opening=True)
+    image = fil.morphology(image , filter=filter1 , Opening=False)
+    image = im.CV2PIL(image)
+    im.show(image , methood="pil")
