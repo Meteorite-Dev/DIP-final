@@ -43,7 +43,7 @@ class GUI_Function (tk.Frame ,ImageProcess):
         # self.image_file_name = image_path
         self.image =super().OpenImage(image_file_name = self.image_path , methood="cv")
         image = super().CV2PIL(self.image)
-        super().show(image=self.image ,methood="pil")
+        #super().show(image=self.image ,methood="pil")
         #super().show(image = image)
         #return self.image
 
@@ -57,7 +57,7 @@ class GUI_Function (tk.Frame ,ImageProcess):
     
     def label_image(self):
         image = super().CV2PIL(self.image)
-        image = image.resize((512, 512), Image.ANTIALIAS)
+        image = image.resize((600, 600), Image.ANTIALIAS)
         return image
 
     def gaus_kernal(self):
@@ -70,38 +70,43 @@ class GUI_Function (tk.Frame ,ImageProcess):
     def gaus_blur(self):
         image_path = self.image_path
         print(image_path)
-        image = super().Gaussian_filter(self.image)
-        image = super().CV2PIL(image)
-        super().show(image = image)
+        self.image = super().Gaussian_filter(self.image)
+        return self.image
+        #self.image = super().CV2PIL(image)
+        #super().show(image = image)
 
     def fil2d(self):
         image_path = self.image_path
         filt = super().gaussian_kernal(size = 3 ,intensity = 1)
         print(image_path)
-        image = super().filter2d(self.image , filt)
-        image = super().CV2PIL(image)
-        super().show(image = image)
+        self.image = super().filter2d(self.image , filt)
+        return self.image
+        #image = super().CV2PIL(image)
+        #super().show(image = image)
         
     def otsu_thres(self):
         image_path = self.image_path
         print(image_path)
-        image = super().otsu_threshold(self.image)
-        image = super().CV2PIL(image)
-        super().show(image = image)
+        self.image = super().otsu_threshold(self.image)
+        return self.image
+        #image = super().CV2PIL(image)
+        #super().show(image = image)
 
     def log_function_for_button(self):
         image_path = self.image_path
         print(image_path)
-        image = super().LoG(self.image)
-        image = super().CV2PIL(image)
-        super().show(image = image)
+        self.image = super().LoG(self.image)
+        return self.image
+        #image = super().CV2PIL(image)
+        #super().show(image = image)
     
     def sobel_function_for_button(self):
         image_path = self.image_path
         print(image_path)
-        image = super().Sobel(self.image)
-        image = super().CV2PIL(image)
-        super().show(image = image)
+        self.image = super().Sobel(self.image)
+        return self.image
+        #image = super().CV2PIL(image)
+        #super().show(image = image)
 
 if __name__ =="__main__" :
     G = GUI_Function(tk.Tk())

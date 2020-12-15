@@ -16,7 +16,7 @@ class Filter():
 
         return gs
 
-    def Gaussian_filter(self , image ,intensity=2) :
+    def Gaussian_filter(self , image ,intensity=10) :
         blur = cv2.GaussianBlur(image , (5,5) , intensity)
         return blur 
 

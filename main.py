@@ -39,15 +39,19 @@ class Root(GUI_Function  ,tk.Frame ):
 
 
         self.parent = parent
-       
+
+        s = ttk.Style()
+        s.theme_use('alt')
+        s.configure("image_chose_button_style.TButton",background ="AliceBlue")
+        s.configure("image_function_button_style.TButton", background = "Wheat" )
         #entry=tk.Entry(RootWindow,insertbackground='blue', highlightthickness =2)#用來參考的程式碼
         #canvas.create_window(256,174, width=100, height=200,window=entry) #位置是圖片中心點，可以用來插入在桌布上面
         
         GUI_Function.__init__(self,parent=self.parent)
 
         self.initial_user_interface()
-        self.chose_textbox()
-        self.image_chose_button()
+        self.choose_textbox()
+        self.image_choose_button()
         self.image_open_button()
         self.image_gaus_kernal_button()#會有錯:gaus_kernal only integer scalar arrays can be converted to a scalar index
         self.image_gaus_blur_button()
@@ -65,22 +69,22 @@ class Root(GUI_Function  ,tk.Frame ):
     #預留column=0和row=0當作預設擴充的地方或是最後要把輸入的按鍵外擴
     
     
-    def chose_textbox(self):
+    def choose_textbox(self):
         self.image_name = ttk.Entry(
               self.parent, width=13, textvariable=self.filename)
         #self.image_name.grid(column=1 ,row=1 , pady=10 ,padx=10 ,ipadx=10 ,ipady=13)
         canvas.create_window(self.central_x+250,self.central_y, width=self.width+500, height=self.height/2,window=self.image_name)
     
-    def image_chose_button(self):
+    def image_choose_button(self):
         self.image_chose = ttk.Button(
-             self.parent, text="Choosen" , command=self.Chose_Image)
+             self.parent, text="Choosen" ,style = "image_chose_button_style.TButton", command=self.Chose_Image)
         #self.image_chose.grid(column=2, row=1 ,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)#有了下面那行這行就出現不了了
         canvas.create_window(self.central_x+self.offset_x+450,self.central_y, width=self.width/2, height=self.height/2,window=self.image_chose)
         
 
     def image_open_button(self):
         self.image_open = ttk.Button(
-            self.parent, text="Show original picture", command=lambda:[self.open_original_image(),self.open_image(),self.image_label(),])
+            self.parent, text="Show original picture", style = "image_chose_button_style.TButton",command=lambda:[self.open_image(),self.image_label()])
         #self.image_open.grid(column=3, row=1,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
         canvas.create_window(self.central_x+2*self.offset_x+400,self.central_y,
                              width=self.width*8/9, height=self.height/2,window=self.image_open)
@@ -90,21 +94,21 @@ class Root(GUI_Function  ,tk.Frame ):
         image = ImageTk.PhotoImage(image)
         self.show_image_label=ttk.Label(image=image)
         self.show_image_label.image=image
-        canvas.create_window(self.central_x+4*self.offset_x, self.central_y+5*self.offset_y,
-                             width=4*self.width, height=4*self.height, window=self.show_image_label)
+        canvas.create_window(self.central_x+5*self.offset_x+20, self.central_y+4*self.offset_y,
+                             width=600, height=600, window=self.show_image_label)
     
     
     #gaus_kernal only integer scalar arrays can be converted to a scalar index，所以我沒放上去
     def image_gaus_kernal_button(self) : 
-        self.kernal = ttk.Button(self.parent, text="gaus kernal",
-                               command=lambda :[self.open_image(),self.gaus_kernal()])
+        self.kernal = ttk.Button(self.parent, text="gaus kernal",style ="image_function_button_style.TButton",
+                               command=lambda :[self.open_image(),self.gaus_kernal(),self.image_label()])
         #self.kernal.grid(column=2, row=3,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
         canvas.create_window(self.central_x+self.offset_x,self.central_y+self.offset_y,
                              width=self.width, height=self.height,window=self.kernal)
 
     def image_gaus_blur_button(self) :
-        self.blur = ttk.Button(self.parent, text="gaus blur",
-                               command=lambda :[self.open_image(),self.gaus_blur()])
+        self.blur = ttk.Button(self.parent, text="gaus blur",style ="image_function_button_style.TButton",
+                               command=lambda :[self.open_image(),self.gaus_blur(),self.image_label()])
        # self.blur.grid(column=1, row=2,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
         canvas.create_window(self.central_x,self.central_y+self.offset_y,
                              width=self.width, height=self.height,window=self.blur)
@@ -112,30 +116,30 @@ class Root(GUI_Function  ,tk.Frame ):
     #filter2d() missing 1 required positional argument: 'filter'
     def image_filter2d_button(self) :
         filt = super().gaussian_kernal(size = 3)
-        self.filter2d = ttk.Button(self.parent, text="filter2d",
-                               command=lambda :[self.open_image(),self.fil2d()])
+        self.filter2d = ttk.Button(self.parent, text="filter2d",style ="image_function_button_style.TButton",
+                               command=lambda :[self.open_image(),self.fil2d(),self.image_label()])
         #self.filter2d.grid(column=2, row=4,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
         canvas.create_window(self.central_x+self.offset_x,self.central_y+2*self.offset_y,
                              width=self.width, height=self.height,window=self.filter2d)
 
     def image_otsu_thres_button(self) :
-        self.otsu = ttk.Button(self.parent, text="otsu",
-                               command=lambda :[self.open_image(),self.otsu_thres()])
+        self.otsu = ttk.Button(self.parent, text="otsu",style ="image_function_button_style.TButton",
+                               command=lambda :[self.open_image(),self.otsu_thres(),self.image_label()])
         #self.otsu.grid(column=1, row=3,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
         canvas.create_window(self.central_x,self.central_y+2*self.offset_y,
                              width=self.width, height=self.height,window=self.otsu)
 
     def image_Log_button(self) :
-        self.Log = ttk.Button(self.parent, text="LoG",
-                               command=lambda :[self.open_image(),self.log_function_for_button()])
+        self.Log = ttk.Button(self.parent, text="LoG",style ="image_function_button_style.TButton",
+                               command=lambda :[self.open_image(),self.log_function_for_button(),self.image_label()])
         #self.Log.grid(column=1, row=4,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
         canvas.create_window(self.central_x,self.central_y+3*self.offset_y,
                              width=self.width, height=self.height,window=self.Log)
 
 
     def image_sobel_button(self) :
-        self.sobel = ttk.Button(self.parent, text="Sobel",
-                               command=lambda :[self.open_image(),self.sobel_function_for_button()])
+        self.sobel = ttk.Button(self.parent, text="Sobel",style ="image_function_button_style.TButton",
+                               command=lambda :[self.open_image(),self.sobel_function_for_button(),self.image_label()])
         #self.sobel.grid(column=1, row=5,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
         canvas.create_window(self.central_x,self.central_y+4*self.offset_y,
                              width=self.width, height=self.height,window=self.sobel)
