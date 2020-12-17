@@ -83,19 +83,17 @@ class EdgeDetector(Filter):
             image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
         else:
             pass
-        can = cv2.Canny(image,100,200, apertureSize=3 , L2gradient=False)
+        can = cv2.Canny(image,100,200,apertureSize=3 , L2gradient=False)
         
         can  =cv2.convertScaleAbs(can)
 
         return can
 
 if __name__ == "__main__" :
-    fil = Filter()
+    fil = EdgeDetector()
     im = Image_classical()
     image = im.OpenImage("source\\okayu.png" , methood="cv")
     image = im.ResizeImage(image, devide=3)
-    filter1 = np.ones([10,10])
-    image = fil.morphology(image , filter=filter1 , Opening=True)
-    image = fil.morphology(image , filter=filter1 , Opening=False)
+    image = fil.Canny(image)
     image = im.CV2PIL(image)
     im.show(image , methood="pil")
