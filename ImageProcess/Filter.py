@@ -78,12 +78,12 @@ class EdgeDetector(Filter):
         return grad
 
     def Canny(self, image) :
-        image = super().Gaussian_filter(image, intensity=0.5)
+        image = super().Gaussian_filter(image, intensity=5)
         if len(image.shape) == 3:
             image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
         else:
             pass
-        can = cv2.Canny(image, apertureSize=3 , L2gradient=False)
+        can = cv2.Canny(image,100,200, apertureSize=3 , L2gradient=False)
         
         can  =cv2.convertScaleAbs(can)
 

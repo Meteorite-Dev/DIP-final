@@ -59,7 +59,10 @@ class Root(GUI_Function  ,tk.Frame ):
         self.image_otsu_thres_button()
         self.image_Log_button()
         self.image_sobel_button()
-        # self.image_label()
+        self.image_canny_button()
+        self.image_medianblur_button()
+        self.image_morphology_button()
+        #self.image_label()
 
     def initial_user_interface(self):
         self.parent.geometry("1600x1000")
@@ -79,14 +82,14 @@ class Root(GUI_Function  ,tk.Frame ):
         self.image_chose = ttk.Button(
              self.parent, text="Choosen" ,style = "image_chose_button_style.TButton", command=self.Chose_Image)
         #self.image_chose.grid(column=2, row=1 ,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)#有了下面那行這行就出現不了了
-        canvas.create_window(self.central_x+self.offset_x+450,self.central_y, width=self.width/2, height=self.height/2,window=self.image_chose)
+        canvas.create_window(self.central_x+self.offset_x+500,self.central_y, width=self.width/2, height=self.height/2,window=self.image_chose)
         
 
     def image_open_button(self):
         self.image_open = ttk.Button(
             self.parent, text="Show original picture", style = "image_chose_button_style.TButton",command=lambda:[self.open_image(),self.image_label()])
         #self.image_open.grid(column=3, row=1,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
-        canvas.create_window(self.central_x+2*self.offset_x+400,self.central_y,
+        canvas.create_window(self.central_x+2*self.offset_x+500,self.central_y,
                              width=self.width*8/9, height=self.height/2,window=self.image_open)
 
     def image_label(self):
@@ -103,14 +106,14 @@ class Root(GUI_Function  ,tk.Frame ):
         self.kernal = ttk.Button(self.parent, text="gaus kernal",style ="image_function_button_style.TButton",
                                command=lambda :[self.open_image(),self.gaus_kernal(),self.image_label()])
         #self.kernal.grid(column=2, row=3,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
-        canvas.create_window(self.central_x+self.offset_x,self.central_y+self.offset_y,
+        canvas.create_window(self.central_x,self.central_y+self.offset_y,
                              width=self.width, height=self.height,window=self.kernal)
 
     def image_gaus_blur_button(self) :
         self.blur = ttk.Button(self.parent, text="gaus blur",style ="image_function_button_style.TButton",
                                command=lambda :[self.open_image(),self.gaus_blur(),self.image_label()])
        # self.blur.grid(column=1, row=2,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
-        canvas.create_window(self.central_x,self.central_y+self.offset_y,
+        canvas.create_window(self.central_x,self.central_y+2*self.offset_y,
                              width=self.width, height=self.height,window=self.blur)
 
     #filter2d() missing 1 required positional argument: 'filter'
@@ -119,23 +122,36 @@ class Root(GUI_Function  ,tk.Frame ):
         self.filter2d = ttk.Button(self.parent, text="filter2d",style ="image_function_button_style.TButton",
                                command=lambda :[self.open_image(),self.fil2d(),self.image_label()])
         #self.filter2d.grid(column=2, row=4,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
-        canvas.create_window(self.central_x+self.offset_x,self.central_y+2*self.offset_y,
+        canvas.create_window(self.central_x+self.offset_x,self.central_y+self.offset_y,
                              width=self.width, height=self.height,window=self.filter2d)
 
     def image_otsu_thres_button(self) :
         self.otsu = ttk.Button(self.parent, text="otsu",style ="image_function_button_style.TButton",
                                command=lambda :[self.open_image(),self.otsu_thres(),self.image_label()])
         #self.otsu.grid(column=1, row=3,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
-        canvas.create_window(self.central_x,self.central_y+2*self.offset_y,
+        canvas.create_window(self.central_x+self.offset_x,self.central_y+3*self.offset_y,
                              width=self.width, height=self.height,window=self.otsu)
-
+    
+    def image_morphology_button(self) :
+        self.morphology = ttk.Button(self.parent, text="morphology",style ="image_function_button_style.TButton",
+                               command=lambda :[self.open_image(),self.morphology_function_for_button(),self.image_label()])
+        #self.Log.grid(column=1, row=4,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        canvas.create_window(self.central_x,self.central_y+3*self.offset_y,
+                             width=self.width, height=self.height,window=self.morphology)
+    
+    
     def image_Log_button(self) :
         self.Log = ttk.Button(self.parent, text="LoG",style ="image_function_button_style.TButton",
                                command=lambda :[self.open_image(),self.log_function_for_button(),self.image_label()])
         #self.Log.grid(column=1, row=4,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
-        canvas.create_window(self.central_x,self.central_y+3*self.offset_y,
+        canvas.create_window(self.central_x+self.offset_x,self.central_y+4*self.offset_y,
                              width=self.width, height=self.height,window=self.Log)
-
+    def image_medianblur_button(self) :
+        self.medianblur = ttk.Button(self.parent, text="medianblur",style ="image_function_button_style.TButton",
+                               command=lambda :[self.open_image(),self.medianblur_function_for_button(),self.image_label()])
+        #self.Log.grid(column=1, row=4,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        canvas.create_window(self.central_x+self.offset_x,self.central_y+2*self.offset_y,
+                             width=self.width, height=self.height,window=self.medianblur)
 
     def image_sobel_button(self) :
         self.sobel = ttk.Button(self.parent, text="Sobel",style ="image_function_button_style.TButton",
@@ -143,6 +159,13 @@ class Root(GUI_Function  ,tk.Frame ):
         #self.sobel.grid(column=1, row=5,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
         canvas.create_window(self.central_x,self.central_y+4*self.offset_y,
                              width=self.width, height=self.height,window=self.sobel)
+    def image_canny_button(self) :
+        self.canny = ttk.Button(self.parent, text="Canny",style ="image_function_button_style.TButton",
+                               command=lambda :[self.open_image(),self.canny_function_for_button(),self.image_label()])
+        #self.sobel.grid(column=1, row=5,pady=3 ,padx=3 ,ipadx=10 ,ipady=10)
+        canvas.create_window(self.central_x,self.central_y+5*self.offset_y,
+                             width=self.width, height=self.height,window=self.canny)
+
 
 if __name__ =='__main__' :
     RootWindow = tk.Tk()
@@ -152,8 +175,8 @@ if __name__ =='__main__' :
         bg='#afeeee')      # 指定Canvas元件的背景色
     im=tk.PhotoImage(file='REM.gif')#PhotoImage 只能用gif圖
     canvas.create_image(800,500,image = im)#那裏是圖片的中心點
-    # im1=tk.PhotoImage(file='ccit.gif')
-    # canvas.create_image(1370,224,image = im1)#放上校徽整個感覺就不一樣了
+    #im1=tk.PhotoImage(file='ccit.gif')
+    #canvas.create_image(1370,224,image = im1)#放上校徽整個感覺就不一樣了
     canvas.grid()
     
     run = Root(RootWindow)
