@@ -7,6 +7,8 @@ from matplotlib import pyplot as plt
 from mayavi import mlab
 from scipy import stats as stats
 
+import cv2
+
 from imError import ChannelError
 import numpy as np
 
@@ -62,6 +64,57 @@ class plot2D() :
     def YCrCb_plot(self, image):
         image = self.third_channel_his(np_array=image, title="Historgram of YCrCb ", legend=("Y","Cr","Cb"))
         return image
+    
+    def CV_hist(self, image):
+        fig = plt.figure()
+        if image.ndim == 3:
+            
+            color = ('r' ,'g','b')
+            flag = 0
+            img = []
+            for i ,col in enumerate(color):
+                plt.title(col)
+                hist = cv2.calcHist(image , [i] ,None, [256] , [0,256])
+                plt.plot(hist, color=col)
+                plt.xlim([0, 256])
+                plt.xlabel("Instensity")
+                plt.ylabel("Instensities")
+                # plt.show()
+                
+                fig.canvas.draw()
+                fig_img = np.frombuffer(fig.canvas.tostring_rgb(), dtype=np.uint8)
+                fig_img = fig_img.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+                fig_img = cv2.cvtColor(fig_img , cv2.COLOR_BGR2RGB)
+                if flag ==0 :
+                    img =fig_img
+                    img= np.array(img)
+                else:
+                    img = np.concatenate((img, fig_img))
+                flag +=1
+            return img
+
+        else :
+            hist = cv2.calcHist(image , [0] , None,[256] , [0,256])
+            plt.plot(hist)
+            plt.xlim([0,256])
+            plt.xlabel("Instensity")
+            plt.ylabel("Instensities")
+            # plt.show()
+            fig.canvas.draw()
+            fig_img = np.frombuffer(fig.canvas.tostring_rgb(), dtype=np.uint8)
+            fig_img = fig_img.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+            return fig_img
+
+    
+    # def fig_draw(self) :
+    #     fig = plt.figure()
+    #     fig.canvas.draw()
+    #     img = np.frombuffer(fig.canvas.tostring_rgb(), dtype=np.uint8)
+    #     img = img.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+    #     return img
+        
+
+
 
 class plot3D():
     def __init__(self) :
@@ -92,10 +145,11 @@ class plot3D():
 
 if __name__ =="__main__" :
     im = Image_classical()
-    image = im.OpenImage("source\\okayu.png" ,methood="cv")
-    image = im.ResizeImage(image,devide=10 , methood="cv")
-    np_array = im.img2np(image,methood="cv")
+    image = im.OpenImage("source\\HDR.jpg" ,methood="cv")
+    image = im.RGB2HSI(image)
+    # image = im.ResizeImage(image,devide=10 , methood="cv")
+    # np_array = im.img2np(image,methood="cv")
 
     plot= plot2D()
-    image = plot.RGB_plot(np_array)
+    image = plot.HSI_plot(image)
     im.show(image , methood="cv")

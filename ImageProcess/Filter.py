@@ -45,6 +45,17 @@ class Filter():
         ret, Gimage = cv2.threshold(Gimage, 0, 255, cv2.THRESH_OTSU)
         return Gimage
 
+    def hist_equal (self , image ):
+        image = image.astype(np.uint8)
+        image  = cv2.equalizeHist(image)
+        return image
+
+    def blur(self , image , ins=5) :
+        ins *=2
+        image = cv2.blur(image , (ins,ins))
+        
+        return image
+
 class EdgeDetector(Filter):
     def __init__(self) :
         Filter.__init__(self)
@@ -90,10 +101,13 @@ class EdgeDetector(Filter):
         return can
 
 if __name__ == "__main__" :
-    fil = EdgeDetector()
+    fil = Filter()
+    edg = EdgeDetector()
     im = Image_classical()
-    image = im.OpenImage("source\\okayu.png" , methood="cv")
-    image = im.ResizeImage(image, devide=3)
-    image = fil.Canny(image)
+    image = im.OpenImage("source\\HDR.jpg" , methood="cv")
+    im.show(image , methood="cv")
+    # image = im.ResizeImage(image, devide=3)
+    # image = fil.Canny(image)
+    image = fil.hist_equal(image)
     image = im.CV2PIL(image)
     im.show(image , methood="pil")
