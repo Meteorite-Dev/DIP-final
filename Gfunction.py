@@ -108,6 +108,29 @@ class GUI_Function (tk.Frame ,ImageProcess):
         #image = super().CV2PIL(image)
         #super().show(image = image)
 
+    def canny_function_for_button(self):
+        image_path = self.image_path
+        print(image_path)
+        self.image = super().Canny(self.image)
+        return self.image
+        #image = super().CV2PIL(image)
+        #super().show(image = image)
+    def medianblur_function_for_button(self):
+        image_path = self.image_path
+        print(image_path)
+        self.image = super().medianblur(self.image)
+        return self.image
+        #image = super().CV2PIL(image)
+        #super().show(image = image)
+    def morphology_function_for_button(self):
+        image_path = self.image_path
+        print(image_path)
+        self.image = super().medianblur(self.image)
+        return self.image
+        #image = super().CV2PIL(image)
+        #super().show(image = image)
+    
+
 if __name__ =="__main__" :
     G = GUI_Function(tk.Tk())
     G.OpenImage("okayu.png")
