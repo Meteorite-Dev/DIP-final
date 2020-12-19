@@ -2,6 +2,7 @@
 Filter.py 
 寫 filter 的地方，各式各樣的 filter
 '''
+from numpy import fft
 from IM_classical import Image_classical
 import numpy as np 
 import cv2
@@ -45,19 +46,39 @@ class Filter():
         ret, Gimage = cv2.threshold(Gimage, 0, 255, cv2.THRESH_OTSU)
         return Gimage
 
-    def hist_equal (self , image ):
-        image = image.astype(np.uint8)
-        image  = cv2.equalizeHist(image)
-        return image
+    
 
     def blur(self , image , ins=5) :
         ins *=2
         image = cv2.blur(image , (ins,ins))
         
         return image
+    
+    # too bad
+    def hist_equal(self , hsv_image) :
+        # fftv = np.fft.fft(V)
+        print(image.shape)
+        image[:,:,2] = cv2.equalizeHist(image[:,:,2])
+        return image
+
+    # developing 
+    def homomorphic(self ,hsv) :
+        v = hsv[:,:,2]
+        for i in range(v.shape[0]):
+            for j in range(v.shape[1]):
+                if v[i][j] ==0 :
+                    v[i][j] +=1
+        print(np.min(v) ,np.max(v))
+        print(v.shape)
+        log_v = np.log(np.float64(v), dtype=np.float64)
+        dft = np.fft.fft2(log_v)
+        dft_shift = np.fft.fftshift(dft)
+        print(dft)
 
 class EdgeDetector(Filter):
+        
     def __init__(self) :
+
         Filter.__init__(self)
         self.ddepth = cv2.CV_16S
     
@@ -105,9 +126,9 @@ if __name__ == "__main__" :
     edg = EdgeDetector()
     im = Image_classical()
     image = im.OpenImage("source\\HDR.jpg" , methood="cv")
-    im.show(image , methood="cv")
-    # image = im.ResizeImage(image, devide=3)
-    # image = fil.Canny(image)
-    image = fil.hist_equal(image)
-    image = im.CV2PIL(image)
-    im.show(image , methood="pil")
+    
+    hsv = im.RGB2HSV(image)
+    v = fil.homomorphic(hsv)
+    # image = im.HSV2RGB(hsv)
+    # image = im.CV2PIL(v)
+    # im.show(v , methood="cv")

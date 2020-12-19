@@ -39,7 +39,7 @@ class GUI_Function (tk.Frame ,ImageProcess):
     
     def open_original_image(self):#開原圖用的
         self.image_path = self.image_name.get()
-        print(self.image_path)
+        # print(self.image_path)
         # self.image_file_name = image_path
         self.image =super().OpenImage(image_file_name = self.image_path , methood="cv")
         image = super().CV2PIL(self.image)
@@ -49,7 +49,7 @@ class GUI_Function (tk.Frame ,ImageProcess):
 
     def open_image(self): #讓其他功能可以開檔案
         self.image_path = self.image_name.get()
-        print(self.image_path)
+        # print(self.image_path)
         # self.image_file_name = image_path
         self.image =super().OpenImage(image_file_name = self.image_path , methood="cv")
         return self.image
@@ -61,71 +61,80 @@ class GUI_Function (tk.Frame ,ImageProcess):
         return image
 
     def gaus_kernal(self):
-        image_path = self.image_path
-        print(image_path)
+        
+        # image_path = self.image_path
+        # print(image_path)
         image = super().gaussian_kernal(self.image)
         image = super().CV2PIL(image)
         super().show(image = image)
 
     def gaus_blur(self):
-        image_path = self.image_path
-        print(image_path)
+        print("Guas Blur processing......")
+        # image_path = self.image_path
+        # print(image_path)
         self.image = super().Gaussian_filter(self.image)
         return self.image
         #self.image = super().CV2PIL(image)
         #super().show(image = image)
 
     def fil2d(self):
-        image_path = self.image_path
+        # image_path = self.image_path
+        print("filter2D processing...... ")
         filt = super().gaussian_kernal(size = 3 ,intensity = 1)
-        print(image_path)
+        # print(image_path)
         self.image = super().filter2d(self.image , filt)
         return self.image
         #image = super().CV2PIL(image)
         #super().show(image = image)
         
     def otsu_thres(self):
-        image_path = self.image_path
-        print(image_path)
+        print("otsu_thres processing......")
+        # image_path = self.image_path
+        # print(image_path)
         self.image = super().otsu_threshold(self.image)
         return self.image
         #image = super().CV2PIL(image)
         #super().show(image = image)
 
     def log_function_for_button(self):
-        image_path = self.image_path
-        print(image_path)
+        print("LoG processing......")
+        # image_path = self.image_path
+        # print(image_path)
         self.image = super().LoG(self.image)
         return self.image
         #image = super().CV2PIL(image)
         #super().show(image = image)
     
     def sobel_function_for_button(self):
-        image_path = self.image_path
-        print(image_path)
+        print("Sobel processing.......")
+        # image_path = self.image_path
+        # print(image_path)
         self.image = super().Sobel(self.image)
         return self.image
         #image = super().CV2PIL(image)
         #super().show(image = image)
 
     def canny_function_for_button(self):
-        image_path = self.image_path
-        print(image_path)
+        print("Cannt processing......")
+        # image_path = self.image_path
+        # print(image_path)
         self.image = super().Canny(self.image)
         return self.image
         #image = super().CV2PIL(image)
         #super().show(image = image)
     def medianblur_function_for_button(self):
-        image_path = self.image_path
-        print(image_path)
+        print("Mediand blur processing......")
+        # image_path = self.image_path
+        # print(image_path)
         self.image = super().medianblur(self.image)
         return self.image
         #image = super().CV2PIL(image)
         #super().show(image = image)
     def morphology_function_for_button(self):
-        image_path = self.image_path
-        print(image_path)
-        self.image = super().medianblur(self.image)
+        print("Morphology processing......")
+        # image_path = self.image_path
+        # print(image_path)
+        self.image = super().morphology(self.image)
         return self.image
         #image = super().CV2PIL(image)
         #super().show(image = image)

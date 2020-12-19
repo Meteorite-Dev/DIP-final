@@ -66,7 +66,7 @@ class Root(GUI_Function  ,tk.Frame ):
 
     def initial_user_interface(self):
         self.parent.geometry("1600x1000")
-        self.parent.resizable(False, False)
+        self.parent.resizable(True, True)
         self.parent.title("MEV-DIP_class_Final_project")
     
     #預留column=0和row=0當作預設擴充的地方或是最後要把輸入的按鍵外擴

@@ -4,7 +4,7 @@
 
 '''
 from matplotlib import pyplot as plt
-from mayavi import mlab
+# from mayavi import mlab
 from scipy import stats as stats
 
 import cv2
@@ -115,7 +115,7 @@ class plot2D() :
         
 
 
-
+'''
 class plot3D():
     def __init__(self) :
         pass
@@ -142,7 +142,7 @@ class plot3D():
 
         mlab.axes()
         mlab.show()
-
+'''
 if __name__ =="__main__" :
     im = Image_classical()
     image = im.OpenImage("source\\HDR.jpg" ,methood="cv")

@@ -131,6 +131,8 @@ dmypy.json
 # MingChe 
 test/
 source/
+test.py
+cvtest/
 
 # VScode
 .vscode/
